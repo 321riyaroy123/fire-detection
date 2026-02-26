@@ -67,8 +67,8 @@ smart-fire-detection/
 ### 1. Clone & setup
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/smart-fire-detection.git
-cd smart-fire-detection
+git clone https://github.com/YOUR_USERNAME/fire-detection.git
+cd fire-detection
 ```
 
 ### 2. One-command startup
