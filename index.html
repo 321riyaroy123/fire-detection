@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Fire Detection Dashboard</title>
+  <link rel="stylesheet" href="/static/css/style.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head>
+<body>
+  <!-- ── HEADER ── -->
+  <header>
+    <div class="header-left">
+      <span class="logo">🔥</span>
+      <div>
+        <h1>Smart Fire Detection</h1>
+        <p class="subtitle">Industrial Risk Prediction System</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <div id="status-dot" class="status-dot green"></div>
+      <span id="status-text">System Online</span>
+      <span id="live-clock" class="clock"></span>
+    </div>
+  </header>
+
+  <!-- ── ALERT BANNER ── -->
+  <div id="alert-banner" class="alert-banner hidden"></div>
+
+  <!-- ── STAT CARDS ── -->
+  <section class="cards-grid">
+    <div class="card" id="card-temp">
+      <div class="card-icon">🌡️</div>
+      <div class="card-body">
+        <p class="card-label">Temperature</p>
+        <p class="card-value" id="val-temp">—</p>
+        <p class="card-unit">°C</p>
+      </div>
+      <div class="card-bar"><div class="bar-fill" id="bar-temp"></div></div>
+    </div>
+    <div class="card" id="card-smoke">
+      <div class="card-icon">💨</div>
+      <div class="card-body">
+        <p class="card-label">Smoke Level</p>
+        <p class="card-value" id="val-smoke">—</p>
+        <p class="card-unit">ppm</p>
+      </div>
+      <div class="card-bar"><div class="bar-fill" id="bar-smoke"></div></div>
+    </div>
+    <div class="card" id="card-gas">
+      <div class="card-icon">⚗️</div>
+      <div class="card-body">
+        <p class="card-label">Gas Level</p>
+        <p class="card-value" id="val-gas">—</p>
+        <p class="card-unit">ppm</p>
+      </div>
+      <div class="card-bar"><div class="bar-fill" id="bar-gas"></div></div>
+    </div>
+    <div class="card risk-card" id="card-risk">
+      <div class="card-icon">⚠️</div>
+      <div class="card-body">
+        <p class="card-label">Risk Level</p>
+        <p class="card-value" id="val-risk">—</p>
+        <p class="card-unit" id="val-device">—</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CHARTS ── -->
+  <section class="charts-grid">
+    <div class="chart-box">
+      <h2>Temperature Over Time</h2>
+      <canvas id="chart-temp"></canvas>
+    </div>
+    <div class="chart-box">
+      <h2>Smoke &amp; Gas Over Time</h2>
+      <canvas id="chart-sg"></canvas>
+    </div>
+    <div class="chart-box">
+      <h2>Risk Distribution (Last 24h)</h2>
+      <canvas id="chart-risk-dist"></canvas>
+    </div>
+    <div class="chart-box">
+      <h2>Probability Breakdown</h2>
+      <canvas id="chart-proba"></canvas>
+    </div>
+  </section>
+
+  <!-- ── PREDICT PANEL ── -->
+  <section class="predict-panel">
+    <h2>🔮 Manual Risk Prediction</h2>
+    <div class="predict-inputs">
+      <label>Temperature (°C)
+        <input type="number" id="inp-temp"  value="40" min="0" max="200"/>
+      </label>
+      <label>Smoke (ppm)
+        <input type="number" id="inp-smoke" value="200" min="0" max="1200"/>
+      </label>
+      <label>Gas (ppm)
+        <input type="number" id="inp-gas"   value="300" min="0" max="1200"/>
+      </label>
+      <button id="btn-predict" onclick="manualPredict()">Predict Risk</button>
+    </div>
+    <div id="predict-result" class="predict-result hidden"></div>
+  </section>
+
+  <!-- ── RECENT READINGS TABLE ── -->
+  <section class="table-section">
+    <h2>📋 Recent Sensor Readings</h2>
+    <div class="table-wrapper">
+      <table id="readings-table">
+        <thead>
+          <tr>
+            <th>Time</th><th>Device</th><th>Temp (°C)</th>
+            <th>Smoke (ppm)</th><th>Gas (ppm)</th><th>Risk</th>
+          </tr>
+        </thead>
+        <tbody id="readings-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <p>Smart Fire Detection &amp; Risk Prediction System — IoT + ML</p>
+  </footer>
+
+  <script src="/static/js/dashboard.js"></script>
+</body>
+</html>
